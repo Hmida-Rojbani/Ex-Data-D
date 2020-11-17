@@ -2,9 +2,12 @@ package de.tekup.ex.data.models;
 
 
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -20,4 +23,6 @@ public class Studio {
 	
 	@Column(length = 70)
 	private String address;
+	@OneToMany(mappedBy = "studio")
+	private List<Movie> movies;
 }

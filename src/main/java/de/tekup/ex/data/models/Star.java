@@ -1,10 +1,12 @@
 package de.tekup.ex.data.models;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -23,4 +25,7 @@ public class Star {
 	private char gendre;
 	
 	private LocalDate birthDate;
+	
+	@ManyToMany(mappedBy = "stars")
+	private List<Movie> movies;
 }
