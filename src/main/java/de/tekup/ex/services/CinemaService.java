@@ -19,23 +19,37 @@ import lombok.AllArgsConstructor;
 @Service
 @AllArgsConstructor
 public class CinemaService {
-	
+
 	private MovieRepository reposMovie;
 	private StudioRepository reposStudio;
 	private StarRepository reposStar;
-	
-	public List<Studio> getStudiosByStar(String starName){
-		
+
+	public List<Studio> getStudiosByStar(String starName) {
+
 		Star star = reposStar.findById(starName)
-							.orElseThrow(()-> new NoSuchElementException("Star with name not found"));
-		
+				.orElseThrow(() -> new NoSuchElementException("Star with name not found"));
+
 		Set<Studio> studios = new HashSet<>();
-		
+
 		for (Movie movie : star.getMovies()) {
 			studios.add(movie.getStudio());
 		}
-		
+
 		return new ArrayList<>(studios);
+	}
+
+	public List<Movie> getColoredMoviesByStudio(String studioName) {
+		Studio studio = reposStudio.findById(studioName)
+				.orElseThrow(() -> new NoSuchElementException("Studio with name not found"));
+
+		List<Movie> coloredMovies = new ArrayList<>();
+
+		for (Movie movie : studio.getMovies()) {
+			if (movie.getColor() == 1) {
+				coloredMovies.add(movie);
+			}
+		}
+		return coloredMovies;
 	}
 
 }
